@@ -1,8 +1,11 @@
-import PatientForm from "@/components/form/PatientForm";
+import RegisterForm from "@/components/form/RegisterForm";
+import { getUser } from "@/lib/actions/patient.actions";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 
-export default function Home() {
+const Register = async ({ params: { userId } }: SearchParamProps) => {
+  const user = await getUser(userId);
   return (
     <div className="flex h-screen max-h-screen">
       <section className="remove-scrollbar container my-auto mx-auto">
@@ -14,7 +17,7 @@ export default function Home() {
             width={1000}
             className="mb-5 h-13 w-fit rounded-lg"
           />
-          <PatientForm />
+          <RegisterForm user={user} />
           <div className="text-14-regular mt-13 flex justify-between ">
             <p className="flex justify-items-end text-[#76828D] xl:text-left">
               © 2025 MedCare
@@ -27,4 +30,6 @@ export default function Home() {
       </section>
     </div>
   );
-}
+};
+
+export default Register;

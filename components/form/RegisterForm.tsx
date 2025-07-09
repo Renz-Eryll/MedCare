@@ -11,18 +11,9 @@ import { useState } from "react";
 import { UserFormValidation } from "@/lib/validation";
 import { useRouter } from "next/navigation";
 import { createUser } from "@/lib/actions/patient.actions";
+import { FormFieldType } from "./PatientForm";
 
-export enum FormFieldType {
-  INPUT = "input",
-  TEXTAREA = "textarea",
-  PHONE_INPUT = "phoneInput",
-  CHECKBOX = "checkbox",
-  DATE_PICKER = "datePicker",
-  SELECT = "select",
-  SKELETON = "skeleton",
-}
-
-const PatientForm = () => {
+const RegisterForm = ({ user }: { user: User }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -50,10 +41,19 @@ const PatientForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 flex-1">
-        <section className="mb-12 space-y-4">
-          <h1 className="header">Hi there,</h1>
-          <p className="text-[#ABB8C4]">Schedule your first appointment.</p>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-12 flex-1"
+      >
+        <section className=" space-y-4">
+          <h1 className="header">Welcome,</h1>
+          <p className="text-[#ABB8C4]">Let us know more about yourself.</p>
+        </section>
+
+        <section className=" space-y-6">
+          <div className="mb-9 space-y-1">
+            <h2 className="sub-header">Personal Information</h2>
+          </div>
         </section>
         <CustomFormField
           fieldType={FormFieldType.INPUT}
@@ -65,28 +65,10 @@ const PatientForm = () => {
           iconAlt="user"
         />
 
-        <CustomFormField
-          fieldType={FormFieldType.INPUT}
-          control={form.control}
-          name="email"
-          label="Email"
-          placeholder="renzeryll@gmail.com"
-          iconSrc="/assets/icons/email.svg"
-          iconAlt="email"
-        />
-        <CustomFormField
-          fieldType={FormFieldType.PHONE_INPUT}
-          control={form.control}
-          name="phone"
-          label="Phone Number"
-          placeholder="+63 912 345 6789"
-          iconSrc="/assets/icons/phone.svg"
-          iconAlt="email"
-        />
         <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
       </form>
     </Form>
   );
 };
 
-export default PatientForm;
+export default RegisterForm;
