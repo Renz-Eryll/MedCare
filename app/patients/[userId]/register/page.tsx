@@ -1,11 +1,14 @@
+export const dynamic = "force-dynamic";
+
 import RegisterForm from "@/components/form/RegisterForm";
 import { getUser } from "@/lib/actions/patient.actions";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
-const Register = async ({ params: { userId } }: SearchParamProps) => {
+const Register = async ({ params }: { params: { userId: string } }) => {
+  const { userId } = params;
   const user = await getUser(userId);
+
   return (
     <div className="flex h-screen max-h-screen">
       <section className="remove-scrollbar container my-auto mx-auto">
@@ -22,9 +25,6 @@ const Register = async ({ params: { userId } }: SearchParamProps) => {
             <p className="flex justify-items-end text-[#76828D] xl:text-left">
               © 2025 MedCare
             </p>
-            <Link href="/?admin-true" className="text-green-500">
-              Admin
-            </Link>
           </div>
         </div>
       </section>
